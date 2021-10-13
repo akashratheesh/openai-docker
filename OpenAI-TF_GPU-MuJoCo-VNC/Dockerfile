@@ -77,7 +77,7 @@ COPY "mjkey.txt" "/root/.mujoco/"
 
 
 # install MuJoCo Dependecies
-#RUN pip3 install glfw>=1.4.0 Cython>=0.27.2 imageio>=2.1.2 cffi>=1.10 fasteners~=0.15 lockfile
+RUN pip3 install glfw>=1.4.0 Cython>=0.27.2 imageio>=2.1.2 cffi>=1.10 fasteners~=0.15 lockfile
 
 
 
@@ -131,13 +131,13 @@ COPY "startup_jupyter.sh" "/usr/lib/startup_jupyter.sh"
 
 
 RUN if [[ -z "$install_jupyter" ]] ; \
-        then echo "JupyterLab will not be installed." ; \
+        then  "JupyterLab will not be installed." ; \
     elif [ "$install_jupyter" = "yes" ] ; \
-        then echo "JupyterLab will be installed." && \
+        then printf "JupyterLab will be installed." && \
         pip3 install jupyterlab && \
         rm -rf /usr/lib/startup.sh &&  \
         mv /usr/lib/startup_jupyter.sh /usr/lib/startup.sh; \
-    else echo "JupyterLab will not be installed."; \
+    else printf "JupyterLab will not be installed."; \
     fi
 
 RUN chmod +x "/usr/lib/startup.sh" 
