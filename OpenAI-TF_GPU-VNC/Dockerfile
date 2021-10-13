@@ -74,9 +74,8 @@ RUN mkdir ~/.vnclogs
 # Change VNC password here (Default password is 1234)
 RUN x11vnc -storepasswd "1234" ~/.vnc/passwd
 
-COPY "startup.sh" "/opt/startup.sh"
-COPY "startup_jupyter.sh" "/opt/startup_jupyter.sh"
-RUN chmod +x "/opt/startup.sh" 
+
+
 
 WORKDIR /
 
@@ -86,16 +85,23 @@ SHELL ["/bin/bash", "-lc"]
 
 # Change VNC Display Param here (Default Screen Size: 1024x768x24)
 
+COPY "startup.sh" "/usr/lib/startup.sh"
+COPY "startup_jupyter.sh" "/usr/lib/startup_jupyter.sh"
+
+
 RUN if [[ -z "$install_jupyter" ]] ; \
         then echo "JupyterLab will not be installed." ; \
     elif [ "$install_jupyter" = "yes" ] ; \
         then echo "JupyterLab will be installed." && \
         pip3 install jupyterlab && \
-        rm -rf /opt/startup.sh &&  \
-        mv /opt/startup_jupyter.sh /opt/startup.sh; \
+        rm -rf /usr/lib/startup.sh &&  \
+        mv /usr/lib/startup_jupyter.sh /usr/lib/startup.sh; \
+    else echo "JupyterLab will not be installed."; \
     fi
 
-RUN printf "#!/bin/bash \n/usr/bin/xvfb-run -n 100 -s \"-screen 0 1024x768x24 \" \"/opt/startup.sh\"" >> /opt/container_init.sh
+RUN chmod +x "/usr/lib/startup.sh" 
 
-RUN chmod +x "/opt/container_init.sh"
-ENTRYPOINT /opt/container_init.sh
+RUN printf "#!/bin/bash \n/usr/bin/xvfb-run -n 100 -s \"-screen 0 1024x768x24 \" \"/usr/lib/startup.sh\"" >> /usr/lib/container_init.sh
+
+RUN chmod +x "/usr/lib/container_init.sh"
+ENTRYPOINT /usr/lib/container_init.sh
