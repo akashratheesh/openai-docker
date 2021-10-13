@@ -46,14 +46,16 @@ RUN apt-get update && \
 
 ## Install OpenAI GYM 
 
-RUN pip3 install gym pyglet
+RUN pip3 install gym pyglet jupyterlab
 
+# Jupyter Lab Port
+EXPOSE 8000
 
 # TensorBoard Port
 EXPOSE 6006
 
 # VNC Port
-EXPOSE 6006
+EXPOSE 5900
 
 
 ## Startup Scripts
