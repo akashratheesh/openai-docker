@@ -1,4 +1,7 @@
 ## OPENAI GYM with Tensorflow GPU and VNC (for rendering) support
+# References: 
+#           https://github.com/openai/mujoco-py
+#           https://github.com/openai/mujoco-py
 
 # Using Tensorflow GPU Base Image 
 # Change to tensorflow/tensorflow:latest to change to CPU version
@@ -23,6 +26,7 @@ RUN apt-get update && \
         libsdl2-dev \
         curl \
         cmake \
+        virtualenv \
         vim \
         swig \
         wget \
@@ -44,14 +48,15 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/* /root/.cache/pip/
 
 
+## Changing Python to 3.6 (Based on https://github.com/openai/mujoco-py/blob/master/Dockerfile)
 
 RUN DEBIAN_FRONTEND=noninteractive add-apt-repository --yes ppa:deadsnakes/ppa && apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --yes virtualenv python3.6-dev python3.6 python3-pip
-RUN virtualenv --python=python3.6 env
+RUN DEBIAN_FRONTEND=noninteractive apt-get install --yes python3.7-dev python3.7 python3-pip
+RUN virtualenv --python=python3.7 env
 
 RUN rm /usr/bin/python
-RUN ln -s /env/bin/python3.6 /usr/bin/python
-RUN ln -s /env/bin/pip3.6 /usr/bin/pip
+RUN ln -s /env/bin/python3.7 /usr/bin/python
+RUN ln -s /env/bin/pip3.7 /usr/bin/pip
 RUN ln -s /env/bin/pytest /usr/bin/pytest
 
 RUN /usr/bin/python3 -m pip install --upgrade pip
