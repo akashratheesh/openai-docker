@@ -71,6 +71,8 @@ RUN chmod +x "/opt/startup.sh"
 
 WORKDIR /
 
+SHELL ["/bin/bash", "-c"] 
+
 # Change VNC Display Param here (Default Size: 1024x768x24)
-ENTRYPOINT ["/bin/bash /usr/bin/xvfb-run", "-n 100", '-s "-screen 0 1024x768x24"', "/opt/startup.sh"]
+ENTRYPOINT ["/usr/bin/xvfb-run", "-n 100", '-s "-screen 0 1024x768x24"', "/opt/startup.sh"]
 
