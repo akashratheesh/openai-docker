@@ -12,7 +12,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y \
         ffmpeg \
-        python3-pyglet \
+        python-pyglet \
         python3-opengl \
         python3-pip\
         python3-tk \
@@ -53,7 +53,6 @@ RUN pip3 install gym pyglet
 EXPOSE 6006
 
 # VNC Port
-
 EXPOSE 6006
 
 
@@ -66,8 +65,8 @@ ENV OPENAI_DISPLAY_SIZE=1024x768x24
 RUN mkdir ~/.vnc
 RUN mkdir ~/.vnclogs
 
-# Change VNC password here
-RUN x11vnc -storepassws "1234" ~/.vnc/passwd
+# Change VNC password here (Default password is 1234)
+RUN x11vnc -storepasswd "1234" ~/.vnc/passwd
 
 COPY "startup.sh" "/opt/startup.sh"
 RUN chmod +x "/opt/startup.sh" 
