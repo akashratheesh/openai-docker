@@ -48,6 +48,10 @@ RUN /usr/bin/python3 -m pip install --upgrade pip
 
 ## Install MuJoCo
 
+# Install PatchElf
+RUN curl -o /usr/local/bin/patchelf https://s3-us-west-2.amazonaws.com/openai-sci-artifacts/manual-builds/patchelf_0.9_amd64.elf \
+    && chmod +x /usr/local/bin/patchelf
+
 RUN mkdir -p /root/.mujoco/ \
     && wget https://www.roboti.us/download/mjpro150_linux.zip -O mujoco.zip \
     && unzip mujoco.zip -d /root/.mujoco/ \
