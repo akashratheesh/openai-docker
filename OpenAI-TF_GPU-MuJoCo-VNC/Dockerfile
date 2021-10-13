@@ -49,21 +49,18 @@ RUN /usr/bin/python3 -m pip install --upgrade pip
 ## Install MuJoCo
 
 RUN mkdir -p /root/.mujoco/ \
-    && wget https://www.roboti.us/download/mujoco200_linux.zip -O mujoco.zip \
+    && wget https://www.roboti.us/download/mjpro150_linux.zip -O mujoco.zip \
     && unzip mujoco.zip -d /root/.mujoco/ \
-    && mv /root/.mujoco/mujoco200_linux /root/.mujoco/mujoco200 \
     && rm -rf mujoco.zip
 
 # Add Mujoco Locations to path
-ENV LD_LIBRARY_PATH /root/.mujoco/mujoco200/bin:${LD_LIBRARY_PATH}
+ENV LD_LIBRARY_PATH /root/.mujoco/mjpro150/bin:${LD_LIBRARY_PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 # Add Mujoco License
 
 COPY "mjkey.txt" "/root/.mujoco/"
 
-ARG MUJOCO_PY_MUJOCO_PATH=/root/.mujoco/mujoco200
-ARG MUJOCO_PY_MJKEY_PATH=/root/.mujoco/
 
 # install MuJoCo Dependecies
 RUN pip3 install glfw>=1.4.0 Cython>=0.27.2 imageio>=2.1.2 cffi>=1.10 fasteners~=0.15 lockfile
