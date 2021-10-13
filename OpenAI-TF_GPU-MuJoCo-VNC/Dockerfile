@@ -17,6 +17,7 @@ ARG install_jupyter
 RUN apt-get update && \
     apt-get install -y \
         ffmpeg \
+        python3.7-dev python3.7 \
         python3-opengl \
         python3-pip\
         python3-tk \
@@ -48,16 +49,7 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/* /root/.cache/pip/
 
 
-## Changing Python to 3.6 (Based on https://github.com/openai/mujoco-py/blob/master/Dockerfile)
 
-RUN DEBIAN_FRONTEND=noninteractive add-apt-repository --yes ppa:deadsnakes/ppa && apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --yes python3.7-dev python3.7 python3-pip
-RUN virtualenv --python=python3.7 env
-
-RUN rm /usr/bin/python
-RUN ln -s /env/bin/python3.7 /usr/bin/python
-RUN ln -s /env/bin/pip3.7 /usr/bin/pip
-RUN ln -s /env/bin/pytest /usr/bin/pytest
 
 RUN /usr/bin/python3 -m pip install --upgrade pip
 
