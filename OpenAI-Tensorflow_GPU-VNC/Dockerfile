@@ -5,6 +5,9 @@
 
 FROM tensorflow/tensorflow:latest-gpu
 
+LABEL maintainer="Akash Ratheesh <akash.ratheeshbabu@colorado.edu>"
+
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 
@@ -63,8 +66,8 @@ ENV OPENAI_DISPLAY_SIZE=1024x768x24
 
 # Set VNC Params
 
-mkdir ~/.vnc
-mkdir ~/.vnclogs
+RUN mkdir ~/.vnc
+RUN mkdir ~/.vnclogs
 
 # Change VNC password here
 RUN x11vnc -storepassws "1234" ~/.vnc/passwd
