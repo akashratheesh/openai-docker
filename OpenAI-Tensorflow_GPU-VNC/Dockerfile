@@ -72,5 +72,5 @@ COPY "startup.sh" "/opt/startup.sh"
 RUN chmod +x "/opt/startup.sh" 
 
 WORKDIR /
-CMD ["/opt/startup.sh"]
+CMD ['/usr/bin/xvfb-run -n "100" -s "-screen 0 $OPENAI_DISPLAY_SIZE"']
 
