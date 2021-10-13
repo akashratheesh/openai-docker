@@ -7,9 +7,7 @@ FROM tensorflow/tensorflow:latest-gpu
 
 LABEL maintainer="Akash Ratheesh <akash.ratheeshbabu@colorado.edu>"
 
-
 ARG DEBIAN_FRONTEND=noninteractive
-
 
 RUN apt-get update && \
     apt-get install -y \
@@ -37,7 +35,6 @@ RUN apt-get update && \
         xterm \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /root/.cache/pip/
-
 
 ## Install OpenAI GYM (Build from Source)
 ## UNCOMMENT FROM HERE
@@ -72,11 +69,9 @@ RUN mkdir ~/.vnclogs
 # Change VNC password here
 RUN x11vnc -storepassws "1234" ~/.vnc/passwd
 
-
-
 COPY "startup.sh" "/opt/startup.sh"
 RUN chmod +x "/opt/startup.sh" 
 
 WORKDIR /
-CMD ["/opt/container-start.sh"]
+CMD ["/opt/startup.sh"]
 
