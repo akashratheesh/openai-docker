@@ -44,6 +44,8 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/* /root/.cache/pip/
 
 
+RUN /usr/bin/python3 -m pip install --upgrade pip
+
 ## Install MuJoCo
 
 RUN mkdir -p /root/.mujoco/ \
@@ -63,7 +65,7 @@ COPY "mjkey.txt" "/root/.mujoco/"
 # install MuJoCo Dependecies
 RUN pip3 install glfw>=1.4.0 Cython>=0.27.2 imageio>=2.1.2 cffi>=1.10 fasteners~=0.15
 
-RUN /usr/bin/python3 -m pip install --upgrade pip
+
 
 ## Install OpenAI GYM (Build from Source)
 ## UNCOMMENT FROM HERE
@@ -75,7 +77,8 @@ RUN /usr/bin/python3 -m pip install --upgrade pip
 
 ## Install OpenAI GYM (COMMENT OUT Below Line if built from source)
 
-RUN pip3 install gym[all] pyglet
+RUN pip3 install gym pyglet
+RUN pip3 install gym[all]
 
 
 # JupyterLab Port
