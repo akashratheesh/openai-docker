@@ -12,7 +12,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y \
         ffmpeg \
-        python-pyglet \
         python3-opengl \
         python3-pip\
         python3-tk \
@@ -21,6 +20,7 @@ RUN apt-get update && \
         libboost-all-dev \
         libsdl2-dev \
         curl \
+        vim \
         cmake \
         swig \
         wget \
@@ -36,6 +36,9 @@ RUN apt-get update && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /root/.cache/pip/
 
+
+RUN /usr/bin/python3 -m pip install --upgrade pip
+
 ## Install OpenAI GYM (Build from Source)
 ## UNCOMMENT FROM HERE
 
@@ -44,7 +47,7 @@ RUN apt-get update && \
 
 ## TILL HERE
 
-## Install OpenAI GYM 
+## Install OpenAI GYM (COMMENT OUT Below Line if built from source)
 
 RUN pip3 install gym pyglet jupyterlab
 
