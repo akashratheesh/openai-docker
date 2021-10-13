@@ -2,7 +2,7 @@
 
 # Start Ratpoison on Background
 
-ratpoison & > ~/.vnclogs/ratpoison.log
+ratpoison & 
 
 # Start Xterm
 xterm &
