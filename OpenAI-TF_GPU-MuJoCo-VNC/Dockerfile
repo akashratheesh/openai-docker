@@ -58,7 +58,7 @@ ENV LD_LIBRARY_PATH /usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 # Add Mujoco License
 
-COPY 
+COPY mjtext.txt /root/.mujoco/
 
 
 
@@ -68,13 +68,13 @@ RUN /usr/bin/python3 -m pip install --upgrade pip
 ## UNCOMMENT FROM HERE
 
 # WORKDIR /opt
-# RUN git clone https://github.com/openai/gym.git && pip install -e './gym'
+# RUN git clone https://github.com/openai/gym.git && pip install -e './gym[all]'
 
 ## TILL HERE
 
 ## Install OpenAI GYM (COMMENT OUT Below Line if built from source)
 
-RUN pip3 install gym pyglet
+RUN pip3 install gym[all] pyglet
 
 
 # JupyterLab Port
