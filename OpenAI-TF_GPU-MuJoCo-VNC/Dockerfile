@@ -62,6 +62,9 @@ ENV LD_LIBRARY_PATH /usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 COPY "mjkey.txt" "/root/.mujoco/"
 
+ENV MUJOCO_PY_MUJOCO_PATH=/root/.mujoco/mujoco200
+ENV MUJOCO_PY_MJKEY_PATH=/root/.mujoco/
+
 # install MuJoCo Dependecies
 RUN pip3 install glfw>=1.4.0 Cython>=0.27.2 imageio>=2.1.2 cffi>=1.10 fasteners~=0.15 lockfile
 
@@ -70,15 +73,15 @@ RUN pip3 install glfw>=1.4.0 Cython>=0.27.2 imageio>=2.1.2 cffi>=1.10 fasteners~
 ## Install OpenAI GYM (Build from Source)
 ## UNCOMMENT FROM HERE
 
- WORKDIR /opt
- RUN git clone https://github.com/openai/gym.git && pip install -e './gym[all]'
+# WORKDIR /opt
+# RUN git clone https://github.com/openai/gym.git && pip install -e './gym[all]'
 
 ## TILL HERE
 
 ## Install OpenAI GYM (COMMENT OUT Below Line if built from source)
 
-#RUN pip3 install gym pyglet
-#RUN pip3 install gym[all]
+RUN pip3 install gym pyglet
+RUN pip3 install gym[all]
 
 
 # JupyterLab Port
