@@ -56,9 +56,7 @@ EXPOSE 6006
 EXPOSE 6006
 
 
-## Startup Scripts (Change VNC Display Param here or use -e while Docker run)
-
-ENV OPENAI_DISPLAY_SIZE=1024x768x24
+## Startup Scripts
 
 # Set VNC Params
 
@@ -72,5 +70,7 @@ COPY "startup.sh" "/opt/startup.sh"
 RUN chmod +x "/opt/startup.sh" 
 
 WORKDIR /
-CMD /usr/bin/xvfb-run -n "100" -s "-screen 0 $OPENAI_DISPLAY_SIZE"
+
+# Change VNC Display Param here (Default Size: 1024x768x24)
+CMD ['/usr/bin/xvfb-run -n "100" -s "-screen 0 1024x768x24" "/opt/startup.sh"']
 
