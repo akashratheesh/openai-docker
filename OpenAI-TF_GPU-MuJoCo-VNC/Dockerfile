@@ -44,6 +44,16 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/* /root/.cache/pip/
 
 
+
+RUN DEBIAN_FRONTEND=noninteractive add-apt-repository --yes ppa:deadsnakes/ppa && apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install --yes virtualenv python3.6-dev python3.6 python3-pip
+RUN virtualenv --python=python3.6 env
+
+RUN rm /usr/bin/python
+RUN ln -s /env/bin/python3.6 /usr/bin/python
+RUN ln -s /env/bin/pip3.6 /usr/bin/pip
+RUN ln -s /env/bin/pytest /usr/bin/pytest
+
 RUN /usr/bin/python3 -m pip install --upgrade pip
 
 ## Install MuJoCo
@@ -67,7 +77,7 @@ COPY "mjkey.txt" "/root/.mujoco/"
 
 
 # install MuJoCo Dependecies
-RUN pip3 install glfw>=1.4.0 Cython>=0.27.2 imageio>=2.1.2 cffi>=1.10 fasteners~=0.15 lockfile
+#RUN pip3 install glfw>=1.4.0 Cython>=0.27.2 imageio>=2.1.2 cffi>=1.10 fasteners~=0.15 lockfile
 
 
 
