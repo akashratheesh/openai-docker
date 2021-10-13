@@ -9,6 +9,8 @@ LABEL maintainer="Akash Ratheesh <akash.ratheeshbabu@colorado.edu>"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+ARG install_jupyter
+
 RUN apt-get update && \
     apt-get install -y \
         ffmpeg \
@@ -52,6 +54,9 @@ RUN /usr/bin/python3 -m pip install --upgrade pip
 RUN pip3 install gym pyglet
 
 
+# JupyterLab Port
+EXPOSE 8000
+
 # TensorBoard Port
 EXPOSE 6006
 
@@ -70,6 +75,7 @@ RUN mkdir ~/.vnclogs
 RUN x11vnc -storepasswd "1234" ~/.vnc/passwd
 
 COPY "startup.sh" "/opt/startup.sh"
+COPY "startup_jupyter.sh" "/opt/startup_jupyter.sh"
 RUN chmod +x "/opt/startup.sh" 
 
 WORKDIR /
@@ -79,6 +85,16 @@ SHELL ["/bin/bash", "-lc"]
 
 
 # Change VNC Display Param here (Default Screen Size: 1024x768x24)
+
+RUN if [[ -z "$install_jupyter" ]] ; \
+        then echo "JupyterLab will not be installed." ; \
+    elif [ "$install_jupyter" = "yes" ] ; \
+        then echo "JupyterLab will be installed." && \
+        pip3 install jupyterlab && \
+        rm -rf /opt/startup.sh &&  \
+        mv /opt/startup_jupyter.sh /opt/startup.sh; \
+    fi
+
 RUN printf "#!/bin/bash \n/usr/bin/xvfb-run -n 100 -s \"-screen 0 1024x768x24 \" \"/opt/startup.sh\"" >> /opt/container_init.sh
 
 RUN chmod +x "/opt/container_init.sh"
