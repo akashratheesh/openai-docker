@@ -47,7 +47,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install --yes python3.6-dev python3.6
 
 RUN rm /usr/bin/python
 RUN rm /usr/bin/python3
-RUN rm /usr/bin/pip
 RUN rm /usr/bin/pip3
 RUN ln -s /usr/bin/python3.6 /usr/bin/python
 RUN ln -s /usr/bin/python3.6 /usr/bin/python3
