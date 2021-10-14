@@ -3,7 +3,7 @@
 # Using Tensorflow GPU Base Image 
 # Change to tensorflow/tensorflow:latest to change to CPU version
 
-FROM nvidia/cuda:9.1-cudnn7-runtime-ubuntu16.04
+FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
 
 LABEL maintainer="Akash Ratheesh <akash.ratheeshbabu@colorado.edu>"
 
