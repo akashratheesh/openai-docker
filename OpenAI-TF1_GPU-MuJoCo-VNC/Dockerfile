@@ -50,7 +50,7 @@ RUN apt-get update && \
 RUN echo 'alias python=python3' >> /root/.bashrc
 
 
-RUN pip3 install tensorflow-gpu==1.9
+RUN pip3 install numpy=1.13.3 tensorflow-gpu==1.9
 
 # Install Gym
 
