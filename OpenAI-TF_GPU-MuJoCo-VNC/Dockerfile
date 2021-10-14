@@ -6,7 +6,9 @@
 # Using Tensorflow GPU Base Image 
 # Change to tensorflow/tensorflow:latest to change to CPU version
 
-FROM tensorflow/tensorflow:latest-gpu
+#FROM tensorflow/tensorflow:latest-gpu
+
+FROM nvida/cuda:11
 
 LABEL maintainer="Akash Ratheesh <akash.ratheeshbabu@colorado.edu>"
 
@@ -91,6 +93,9 @@ RUN git clone https://github.com/openai/gym.git && pip install -e './gym[all]'
 #RUN pip3 install gym pyglet
 #RUN pip3 install gym[all]
 
+## Install TensorFlow
+
+RUN pip install tensorflow
 
 # JupyterLab Port
 EXPOSE 8000
