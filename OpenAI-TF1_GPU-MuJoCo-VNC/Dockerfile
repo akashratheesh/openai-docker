@@ -27,6 +27,7 @@ RUN apt-get update && \
         libosmesa6-dev \
         software-properties-common \
         net-tools \
+        virtualenv \
         curl \
         cmake \
         vim \
@@ -45,31 +46,35 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/* /root/.cache/pip/
 
 
-RUN /usr/bin/python3 -m pip install --upgrade pip
+RUN echo 'alias python=python3' >> /root/.bashrc
 
+RUN pip3 install --upgrade pip
+RUN pip3 install numpy tensorflow-gpu==1.9 matplotlib scipy scikit-learn future
 
+# Install Gym
 
-RUN curl -o /usr/local/bin/patchelf https://s3-us-west-2.amazonaws.com/openai-sci-artifacts/manual-builds/patchelf_0.9_amd64.elf \
-    && chmod +x /usr/local/bin/patchelf
+RUN pip3 install gym==0.9.4
 
-ENV LANG C.UTF-8
+## Mujoco Setup
+# Add Mujoco License
 
-RUN mkdir -p /root/.mujoco \
-    && wget https://www.roboti.us/download/mujoco200_linux.zip -O mujoco.zip \
+COPY "mjkey.txt" "/root/.mujoco/"
+
+# Install MuJoCo
+
+RUN mkdir -p /.mujoco \
+    && wget https://www.roboti.us/download/mjpro131_linux.zip -O mujoco.zip \
     && unzip mujoco.zip -d /root/.mujoco \
-    && mv /root/.mujoco/mujoco200_linux /root/.mujoco/mujoco200 \
     && rm mujoco.zip
-COPY ./mjkey.txt /root/.mujoco/
-ENV LD_LIBRARY_PATH /root/.mujoco/mujoco200/bin:${LD_LIBRARY_PATH}
+
+
+# Add Mujoco Locations to path
+ENV LD_LIBRARY_PATH /root/.mujoco/mjpro131/bin:${LD_LIBRARY_PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
-RUN mkdir /mujoco_py \
-    && git clone https://github.com/openai/mujoco-py.git /mujoco_py \
-    && cd /mujoco_py \
-    && pip install --no-cache-dir -r requirements.txt \
-    && pip install --no-cache-dir -r requirements.dev.txt \
-    && python3 setup.py install
-
+ENV MUJOCO_PY_MJKEY_PATH="/root/.mujoco/mjkey.txt"
+ENV MUJOCO_PY_MJPRO_PATH="/root/.mujoco/mjpro131"
+RUN pip3 install mujoco-py==0.5.7
 
 
 
