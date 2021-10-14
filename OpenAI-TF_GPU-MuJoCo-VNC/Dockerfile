@@ -8,7 +8,7 @@
 
 #FROM tensorflow/tensorflow:latest-gpu
 
-FROM nvida/cuda
+FROM nvidia/cuda
 
 LABEL maintainer="Akash Ratheesh <akash.ratheeshbabu@colorado.edu>"
 
