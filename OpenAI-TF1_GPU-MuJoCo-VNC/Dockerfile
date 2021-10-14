@@ -43,7 +43,7 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/* /root/.cache/pip/
 
 RUN DEBIAN_FRONTEND=noninteractive add-apt-repository --yes ppa:deadsnakes/ppa && apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --yes python3.6-dev python3.6 python3-pip python3-opengl python3-tk
+RUN DEBIAN_FRONTEND=noninteractive apt-get install --yes  python3.6-dev python3.6 python3-pip python3-opengl python3-tk
 
 RUN rm /usr/bin/python
 RUN rm /usr/bin/python3
@@ -51,22 +51,20 @@ RUN rm /usr/bin/pip3
 RUN ln -s /usr/bin/python3.6 /usr/bin/python
 RUN ln -s /usr/bin/python3.6 /usr/bin/python3
 RUN ln -s /usr/bin/pip3.6 /usr/bin/pip
-RUN ln -s /usr/bin/pip3.6 /usr/bin/pip3
 
 
-RUN echo 'alias python=python3' >> /root/.bashrc
 
 
-RUN /usr/bin/pip3.6 install futures==2.2.0 numpy==1.13.3 tensorflow-gpu==1.9
+
+
+RUN  python3 -m pip install futures==2.2.0 numpy==1.13.3 tensorflow-gpu==1.9
 
 # Install Gym
 
-RUN /usr/bin/pip3.6 install gym==0.9.4
+RUN  python3 -m pip install gym==0.9.4
 
 ## Mujoco Setup
-# Add Mujoco License
 
-COPY "mjkey.txt" "/root/.mujoco/"
 
 # Install MuJoCo
 
@@ -76,13 +74,17 @@ RUN mkdir -p /.mujoco \
     && rm mujoco.zip
 
 
+# Add Mujoco License
+
+COPY "mjkey.txt" "/root/.mujoco/"
+
 # Add Mujoco Locations to path
 ENV LD_LIBRARY_PATH /root/.mujoco/mjpro131/bin:${LD_LIBRARY_PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 ENV MUJOCO_PY_MJKEY_PATH="/root/.mujoco/mjkey.txt"
 ENV MUJOCO_PY_MJPRO_PATH="/root/.mujoco/mjpro131"
-RUN /usr/bin/pip3.6 install mujoco-py==0.5.7
+RUN  python3 -m pip  install mujoco-py==0.5.7
 
 
 
@@ -127,7 +129,7 @@ RUN if [[ -z "$install_jupyter" ]] ; \
         then echo "JupyterLab will not be installed." ; \
     elif [ "$install_jupyter" = "yes" ] ; \
         then echo "JupyterLab will be installed." && \
-        /usr/bin/pip3.6 install jupyterlab && \
+         python3 -m pip install  jupyterlab && \
         rm -rf /usr/lib/startup.sh &&  \
         mv /usr/lib/startup_jupyter.sh /usr/lib/startup.sh; \
     else echo "JupyterLab will not be installed."; \
