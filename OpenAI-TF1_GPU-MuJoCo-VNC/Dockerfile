@@ -14,10 +14,6 @@ ARG install_jupyter
 RUN apt-get update && \
     apt-get install -y \
         ffmpeg \
-        python3 \
-        python3-opengl \
-        python3-pip\
-        python3-tk \
         libpq-dev \
         libjpeg-dev \
         libboost-all-dev \
@@ -46,11 +42,18 @@ RUN apt-get update && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /root/.cache/pip/
 
+RUN DEBIAN_FRONTEND=noninteractive add-apt-repository --yes ppa:deadsnakes/ppa && apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install --yes python3.6-dev python3.6 python3-pip python3-opengl python3-tk
+
+RUN rm /usr/bin/python
+RUN ln -s /usr/bin/python3.6 /usr/bin/python
+RUN ln -s /usr/bin/pip3.6 /usr/bin/pip
+
 
 RUN echo 'alias python=python3' >> /root/.bashrc
 
 
-RUN pip3 install numpy==1.13.3 tensorflow-gpu==1.9
+RUN pip3 install futures==2.2.0 numpy==1.13.3 tensorflow-gpu==1.9
 
 # Install Gym
 
