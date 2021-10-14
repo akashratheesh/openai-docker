@@ -14,6 +14,7 @@ ARG install_jupyter
 RUN apt-get update && \
     apt-get install -y \
         ffmpeg \
+        python3 \
         python3-opengl \
         python3-pip\
         python3-tk \
