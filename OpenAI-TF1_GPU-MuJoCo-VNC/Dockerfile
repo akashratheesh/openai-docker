@@ -47,7 +47,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install --yes python3.6-dev python3.6
 
 RUN rm /usr/bin/python
 RUN ln -s /usr/bin/python3.6 /usr/bin/python
+RUN ln -s /usr/bin/python3.6 /usr/bin/python3
 RUN ln -s /usr/bin/pip3.6 /usr/bin/pip
+RUN ln -s /usr/bin/pip3.6 /usr/bin/pip3
 
 
 RUN echo 'alias python=python3' >> /root/.bashrc
