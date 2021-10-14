@@ -95,7 +95,7 @@ RUN pip3 install "mujoco-py<2.1,>=2.0"
 ## Install OpenAI GYM (COMMENT OUT Below Line if built from source)
 
 #RUN pip3 install gym pyglet
-RUN pip3 install gym==0.15
+RUN pip3 install gym==0.15.7
 
 ## Install TensorFlow
 
