@@ -80,7 +80,7 @@ COPY "mjkey.txt" "/root/.mujoco/"
 
 # install MuJoCo Dependecies
 RUN pip3 install glfw>=1.4.0 Cython>=0.27.2 imageio>=2.1.2 cffi>=1.10 fasteners~=0.15 
-RUN pip3 install "mujoco-py<2.1,>=2.0"
+
 
 
 
@@ -96,6 +96,7 @@ RUN pip3 install "mujoco-py<2.1,>=2.0"
 
 #RUN pip3 install gym pyglet
 RUN pip3 install gym==0.15.7
+RUN pip install mujoco-py==2.0.2.9 --no-cache-dir --no-binary :all: --no-build-isolation
 
 ## Install TensorFlow
 
