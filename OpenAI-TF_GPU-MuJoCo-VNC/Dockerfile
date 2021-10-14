@@ -87,8 +87,8 @@ RUN pip3 install "mujoco-py<2.1,>=2.0"
 ## Install OpenAI GYM (Build from Source)
 ## UNCOMMENT FROM HERE
 
-WORKDIR /opt
-RUN git clone https://github.com/akashratheesh/gym.git && pip install -e './gym[all]'
+#WORKDIR /opt
+#RUN git clone https://github.com/akashratheesh/gym.git && pip install -e './gym[all]'
 
 ## TILL HERE
 
