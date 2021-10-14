@@ -54,19 +54,23 @@ RUN apt-get update && \
 
 RUN /usr/bin/python3 -m pip install --upgrade pip
 
-## Install MuJoCo
+
 
 # Install PatchElf
 RUN curl -o /usr/local/bin/patchelf https://s3-us-west-2.amazonaws.com/openai-sci-artifacts/manual-builds/patchelf_0.9_amd64.elf \
     && chmod +x /usr/local/bin/patchelf
 
-RUN mkdir -p /root/.mujoco/ \
-    && wget https://www.roboti.us/download/mjpro150_linux.zip -O mujoco.zip \
-    && unzip mujoco.zip -d /root/.mujoco/ \
-    && rm -rf mujoco.zip
+
+## Install MuJoCo
+
+RUN mkdir -p /root/.mujoco \
+    && wget https://www.roboti.us/download/mujoco200_linux.zip -O mujoco.zip \
+    && unzip mujoco.zip -d /root/.mujoco \
+    && mv /root/.mujoco/mujoco200_linux /root/.mujoco/mujoco200 \
+    && rm mujoco.zip
 
 # Add Mujoco Locations to path
-ENV LD_LIBRARY_PATH /root/.mujoco/mjpro150/bin:${LD_LIBRARY_PATH}
+ENV LD_LIBRARY_PATH /root/.mujoco/mujoco200/bin:${LD_LIBRARY_PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 # Add Mujoco License
@@ -75,7 +79,7 @@ COPY "mjkey.txt" "/root/.mujoco/"
 
 
 # install MuJoCo Dependecies
-RUN pip3 install glfw>=1.4.0 Cython>=0.27.2 imageio>=2.1.2 cffi>=1.10 fasteners~=0.15 lockfile
+RUN pip3 install glfw>=1.4.0 Cython>=0.27.2 imageio>=2.1.2 cffi>=1.10 fasteners~=0.15 mujoco-py<2.1,>=2.0
 
 
 
