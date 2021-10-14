@@ -95,7 +95,7 @@ RUN git clone https://github.com/akashratheesh/gym.git && pip install -e './gym[
 ## Install OpenAI GYM (COMMENT OUT Below Line if built from source)
 
 #RUN pip3 install gym pyglet
-#RUN pip3 install gym[all]
+RUN pip3 install gym
 
 ## Install TensorFlow
 
