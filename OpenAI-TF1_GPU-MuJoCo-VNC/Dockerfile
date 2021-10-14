@@ -57,11 +57,11 @@ RUN ln -s /usr/bin/pip3.6 /usr/bin/pip3
 RUN echo 'alias python=python3' >> /root/.bashrc
 
 
-RUN pip install futures==2.2.0 numpy==1.13.3 tensorflow-gpu==1.9
+RUN /usr/bin/pip3.6 install futures==2.2.0 numpy==1.13.3 tensorflow-gpu==1.9
 
 # Install Gym
 
-RUN pip install gym==0.9.4
+RUN /usr/bin/pip3.6 install gym==0.9.4
 
 ## Mujoco Setup
 # Add Mujoco License
@@ -82,7 +82,7 @@ ENV LD_LIBRARY_PATH /usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 ENV MUJOCO_PY_MJKEY_PATH="/root/.mujoco/mjkey.txt"
 ENV MUJOCO_PY_MJPRO_PATH="/root/.mujoco/mjpro131"
-RUN pip install mujoco-py==0.5.7
+RUN /usr/bin/pip3.6 install mujoco-py==0.5.7
 
 
 
@@ -127,7 +127,7 @@ RUN if [[ -z "$install_jupyter" ]] ; \
         then echo "JupyterLab will not be installed." ; \
     elif [ "$install_jupyter" = "yes" ] ; \
         then echo "JupyterLab will be installed." && \
-        pip install jupyterlab && \
+        /usr/bin/pip3.6 install jupyterlab && \
         rm -rf /usr/lib/startup.sh &&  \
         mv /usr/lib/startup_jupyter.sh /usr/lib/startup.sh; \
     else echo "JupyterLab will not be installed."; \
