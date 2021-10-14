@@ -87,15 +87,15 @@ RUN pip3 install "mujoco-py<2.1,>=2.0"
 ## Install OpenAI GYM (Build from Source)
 ## UNCOMMENT FROM HERE
 
-#WORKDIR /opt
-#RUN git clone https://github.com/openai/gym.git && pip install -e './gym[all]'
+WORKDIR /opt
+RUN git clone https://github.com/akashratheesh/gym.git && pip install -e './gym[all]'
 
 ## TILL HERE
 
 ## Install OpenAI GYM (COMMENT OUT Below Line if built from source)
 
-RUN pip3 install gym pyglet
-RUN pip3 install gym[all]
+#RUN pip3 install gym pyglet
+#RUN pip3 install gym[all]
 
 ## Install TensorFlow
 
