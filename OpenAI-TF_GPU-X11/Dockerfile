@@ -101,7 +101,5 @@ RUN if [[ -z "$install_jupyter" ]] ; \
 
 RUN chmod +x "/usr/lib/startup.sh" 
 
-RUN printf "#!/bin/bash \n/usr/bin/xvfb-run -n 100 -s \"-screen 0 1024x768x24 \" \"/usr/lib/startup.sh\"" >> /usr/lib/container_init.sh
 
-RUN chmod +x "/usr/lib/container_init.sh"
-ENTRYPOINT /usr/lib/container_init.sh
+ENTRYPOINT /usr/lib/startup.sh
