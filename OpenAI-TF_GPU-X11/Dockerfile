@@ -71,8 +71,6 @@ EXPOSE 5900
 RUN mkdir ~/.vnc
 RUN mkdir ~/.vnclogs
 
-# Change VNC password here (Default password is 1234)
-RUN x11vnc -storepasswd "1234" ~/.vnc/passwd
 
 
 
